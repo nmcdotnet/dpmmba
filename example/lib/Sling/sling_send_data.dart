@@ -757,7 +757,7 @@ class _SlingSendDataState extends State<SlingSendData> {
     );
   }
 
-  void _showExportCodesSelection(BuildContext context,
+  Future<void> _showExportCodesSelection(BuildContext context,
       StateSetter modalSetState, String selectedPXK, String pTien) async {
     final selectedExportCodes =
     await Navigator.of(context).push<List<ExportCode>>(
@@ -2429,7 +2429,7 @@ class _SlingSendDataState extends State<SlingSendData> {
                                   200.0, 40.0), // Kích thước tối thiểu
                             ),
                             onPressed: () {
-                              _showPopup(context);
+                            //  _showPopup(context);
                               if (_exportCodesController.text.isEmpty) {
                                 // Hiển thị SnackBar nếu TextField rỗng
                                 showDialog(
@@ -2483,6 +2483,7 @@ class _SlingSendDataState extends State<SlingSendData> {
                                   },
                                 );
                               } else {
+                                print("Bat dau dong bo 2");
                                 PutDistributionWithAccountCode();
                                 // Gửi dữ liệu
                                 if (tenLNPP == "LNPP202400007") {
@@ -2519,29 +2520,36 @@ class _SlingSendDataState extends State<SlingSendData> {
       });
     });
   }
-  void _showPopup(BuildContext context) {
-    showDialog(
+
+  // Show option export Sling
+  Future<int> _showPopup(BuildContext context) async {
+    int selectedOption = 1; // Khởi tạo với giá trị mặc định (ví dụ: 1)
+
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
-        int? selectedOption; // Biến lưu tùy chọn đã chọn
-
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16), // Bo góc 16px
+                borderRadius: BorderRadius.circular(16),
               ),
-              title: Text("Chọn tùy chọn xuất Sling:"),
+              title: Text("Chọn tùy chọn xuất Sling:", style: TextStyle(
+                color: AppColor.mainText
+              ),),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   RadioListTile<int>(
                     title: Text("Xuất xuất"),
                     value: 1,
+                    activeColor: AppColor.mainText,
                     groupValue: selectedOption,
                     onChanged: (value) {
+
+
                       setState(() {
-                        selectedOption = value;
+                        selectedOption = value!;
                       });
                     },
                   ),
@@ -2549,9 +2557,10 @@ class _SlingSendDataState extends State<SlingSendData> {
                     title: Text("Xuất giữ"),
                     value: 2,
                     groupValue: selectedOption,
+                    activeColor: AppColor.mainText,
                     onChanged: (value) {
                       setState(() {
-                        selectedOption = value;
+                        selectedOption = value!;
                       });
                     },
                   ),
@@ -2559,9 +2568,10 @@ class _SlingSendDataState extends State<SlingSendData> {
                     title: Text("Xuất đủ"),
                     value: 3,
                     groupValue: selectedOption,
+                    activeColor: AppColor.mainText,
                     onChanged: (value) {
                       setState(() {
-                        selectedOption = value;
+                        selectedOption = value!;
                       });
                     },
                   ),
@@ -2570,22 +2580,21 @@ class _SlingSendDataState extends State<SlingSendData> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // Đóng popup
+                    Navigator.of(context).pop(selectedOption); // Trả về giá trị mặc định khi "Hủy"
                   },
                   child: Text("Hủy"),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Đóng popup
-                    if (selectedOption != null) {
+                 ElevatedButton(
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Bạn đã chọn: Tùy chọn $selectedOption"),
-                        ),
-                      );
-                    }
+                  onPressed: () {
+                    Navigator.of(context).pop(selectedOption); // Trả về giá trị đã chọn khi "OK"
+                    showSyncModal();
                   },
+                   style : ElevatedButton.styleFrom(
+                     backgroundColor: AppColor.mainText,
+                     foregroundColor: Colors.white,
+                     textStyle: TextStyle(fontSize: 20),
+            ),
                   child: Text("OK"),
                 ),
               ],
@@ -2594,6 +2603,8 @@ class _SlingSendDataState extends State<SlingSendData> {
         );
       },
     );
+
+    return selectedOption; // Trả về giá trị đã chọn hoặc giá trị mặc định
   }
 
 // Modal to confirm export code selection
@@ -2658,10 +2669,14 @@ class _SlingSendDataState extends State<SlingSendData> {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Đóng dialog
-                  _showExportCodesSelection(
-                      context, modalSetState, selectedCode, pTien!);
+                onPressed: () async {
+
+
+
+
+                  await _showExportCodesSelection(context, modalSetState, selectedCode, pTien!);
+
+
                 },
                 style: TextButton.styleFrom(
                   backgroundColor:AppColor.mainText,
@@ -3018,7 +3033,8 @@ class _SlingSendDataState extends State<SlingSendData> {
                         const Size(200.0, 40.0), // Kích thước tối thiểu
                       ),
                       onPressed: () {
-                        _showPopup(context);
+                        print("Bat dau dong bo 1");
+                    //    _showPopup(context);
                         PutDistributionWithAccountCode();
                         // sendDataWithPutRequest();
                         if (tenLNPP == "LNPP202400007") {
@@ -4590,7 +4606,8 @@ class _SlingSendDataState extends State<SlingSendData> {
                       fixedSize: const Size(150.0, 50.0),
                     ),
                     onPressed: () {
-                      showSyncModal();
+                      _showPopup(context);
+
                     },
                     child: const Text(
                       'Đồng bộ',

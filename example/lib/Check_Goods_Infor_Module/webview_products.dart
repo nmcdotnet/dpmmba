@@ -23,8 +23,8 @@ class _WebviewProductsState extends State<WebviewProducts> {
   void initState() {
     super.initState();
  //   String url_product = '${AppConfig.IP}/check/${widget.product_id}'.trim();
-    String output = widget.product_id.replaceAll("RCM", "RDM"); // Thay thế RCM thành RPM
-    String url_product = 'https://dpm-saas.mylanhosting.com/check/$output'.trim();
+    //String output = widget.product_id.replaceAll("RCM", "RDM"); // Thay thế RCM thành RPM
+    String url_product = 'https://dpm-saas.mylanhosting.com/check/${widget.product_id}'.trim();
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -110,7 +110,7 @@ class _WebviewProductsState extends State<WebviewProducts> {
               ),
             ),
           ),
-          Text('Mã sản phẩm:  ${widget.product_id.replaceAll("RCM", "RDM")}',
+          Text('Mã sản phẩm:  ${widget.product_id}',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

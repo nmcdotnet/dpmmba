@@ -1198,6 +1198,7 @@ class _SendDataRecallReplacementState extends State<SendDataRecallReplacement> {
                     itemCount: _data.length,
                     itemBuilder: (context, index) {
                       String tagepc = _data[index].epc;
+
                       return ListTile(
                         title: Text(
                           '${index + 1}.$tagepc',

@@ -92,19 +92,13 @@ class _GoodsInformationState extends State<GoodsInformation> {
         print('Data from R5: $scannedCode');
         if (scannedCode.isNotEmpty && startScan) {
           DataReadOptions.readTagsAsync(false, currentDevice); //stop scan
-          //  globalScannedCode = 'RJVD24000047GQML'; // Simulate a valid tag;
+          //  globalScannedCode = 'RPMK240000478QML'; // Simulate a valid tag;
           print('globalScannedCode: $scannedCode');
           setState(() {
-            globalScannedCode = scannedCode;
+             globalScannedCode = scannedCode;
             rebuildKey = UniqueKey(); // Force rebuild
           });
         }
-        // setState(() {
-        // //  globalScannedCode = scannedCode;
-        //   isScan = true;
-        //   _scanAttempted = true; // Mark that a scan has been attempted
-        //   //  startScan = false;
-        // });
       } catch (e) {
         print('Error when scanning RFID: $e');
       }
