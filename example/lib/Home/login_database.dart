@@ -489,7 +489,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                 Text(
-                  'v1.0.0.5 | ',
+                  'v1.0.0.0 | ',
                   style: TextStyle(
                     fontSize: screenWidth * 0.04,
                     color: Colors.grey,

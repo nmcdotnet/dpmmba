@@ -453,7 +453,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                       ],
-                      if (licenseCode.contains('CNQLTH')) ...[
+                      if (licenseCode.contains('CNQLTHH')) ...[
                         // if (licenseCode == 'MQ0008' || licenseCode == 'MQ0012') ...[ // Chỉ hiển thị cho Admin
                         TextButton(
                           onPressed: () {
@@ -490,7 +490,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         SizedBox(height: screenHeight * 0.02),
                       ],
-                      if (licenseCode.contains('CNQLTH')) ...[
+                      if (licenseCode.contains('CNQLTHN')) ...[
                         // if (licenseCode == 'MQ0008' || licenseCode == 'MQ0012') ...[ // Chỉ hiển thị cho Admin
                         TextButton(
                           onPressed: () {
@@ -648,7 +648,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'v1.0.0.5',
+                        'v1.0.0.0',
                         style: TextStyle(
                           fontSize: screenWidth * 0.035,
                           color: Colors.grey,
